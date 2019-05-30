@@ -18,29 +18,29 @@ def getDeviceID():
     if len(device_list) != 1:
         for i, device in enumerate(device_list):
             print(Fore.WHITE + "[" + Fore.RED + str(i) + Fore.WHITE + "] " + device)
-        selection = int(input(Fore.RED + "(Choose a device [0-" + str(len(device_list)-1) + "]) " + Fore.WHITE + "> "))
+        selection = int(input(Fore.GREEN + "(Choose a device [0-" + str(len(device_list)-1) + "]) " + Fore.WHITE + "> "))
     print("Device " + device_list[selection] + " selected")
     return device_list[selection]
 
 
 def getPackageName():
-    return input(Fore.RED + "(Package name, like: com.android) " + Fore.WHITE + "> ")
+    return input(Fore.GREEN + "(Package name, like: com.android) " + Fore.WHITE + "> ")
 
 
 def getFilePath():
-    return input(Fore.RED + "(Which file or folder on the device) " + Fore.WHITE + "> ")
+    return input(Fore.GREEN + "(Which file or folder on the device) " + Fore.WHITE + "> ")
 
 
 def getFileSaveToPath():
-    return input(Fore.RED + "(Save to) " + Fore.WHITE + "> ")
+    return input(Fore.GREEN + "(Save to) " + Fore.WHITE + "> ")
 
 
 def getIPAddress():
-    return input(Fore.RED + "(Which IP) " + Fore.WHITE + "> ")
+    return input(Fore.GREEN + "(Which IP) " + Fore.WHITE + "> ")
 
 
 def getAPKLocation():
-    return input(Fore.RED + "(Path to apk) " + Fore.WHITE + "> ")
+    return input(Fore.GREEN + "(Path to apk) " + Fore.WHITE + "> ")
 
 
 def main():
