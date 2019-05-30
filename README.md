@@ -10,6 +10,14 @@ adb-kit is a collection of handy `adb` commands. It's forked from [PhoneSploit](
 
 ## How to use
 
+- Check `adb` command if it's installed:
+
+```
+adb
+```
+
+If not, follow this guide to install it: https://www.xda-developers.com/install-adb-windows-macos-linux/
+
 - Install python3 requirements:
 
 ```
