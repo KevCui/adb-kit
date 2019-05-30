@@ -65,7 +65,8 @@ def option_1():
     for line in raw_list.splitlines():
         if "List of devices attached" not in line:
             line_split = re.split(r'\s+', line)
-            device_list.append(line_split[0])
+            if line_split[0]:
+                device_list.append(line_split[0])
 
     if len(device_list) == 0:
         print("No device connected!")
