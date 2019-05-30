@@ -213,7 +213,7 @@ def option_s4():
 def option_c():
     message = '''
 {3}Operation
-{0}[{1}1{0}] {2}Show Connected Devices  {0}[{1}2{0}] {2}Disconect all Devices     {0}[{1}3{0}] {2}Wireless device connection
+{0}[{1}1{0}] {2}Show connected devices  {0}[{1}2{0}] {2}Disconect all devices     {0}[{1}3{0}] {2}Wireless device connection
 {0}[{1}4{0}] {2}Restart adb Server      {0}[{1}5{0}] {2}Open Shell on a device    {0}[{1}6{0}] {2}Take a screen record
 {0}[{1}7{0}] {2}Take a screenshot       {0}[{1}8{0}] {2}Pull file from device     {0}[{1}9{0}] {2}Reboot device
 

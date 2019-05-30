@@ -36,12 +36,12 @@ pip install -r requirements.txt
 
 ```
 Operation
-[1] Show Connected Devices  [2] Disconect all Devices     [3] Wireless device connection
-[4] Restart adb Server      [5] Access Shell on a device  [6] Take a screen record
+[1] Show connected devices  [2] Disconect all devices     [3] Wireless device connection
+[4] Restart adb Server      [5] Open Shell on a device    [6] Take a screen record
 [7] Take a screenshot       [8] Pull file from device     [9] Reboot device
 
 App
-[a1] Fresh install an app   [a2] Replace an existing app  [a3] Uninstall an app
+[a1] Install an app         [a2] Replace an existing app  [a3] Uninstall an app
 [a4] Restart an app         [a5] Clear app cache & data   [a6] Run monkey test
 
 System
