@@ -137,10 +137,8 @@ def option_9():
 # App commands
 # ============
 def option_a1():
-    # Fresh install apk
+    # Install apk
     device_id = getDeviceID()
-    package_name = getPackageName()
-    os.system("adb -s  " + device_id + " uninstall " + package_name)
     apk_location = getAPKLocation()
     os.system("adb -s  " + device_id + " install " + apk_location)
 
@@ -220,7 +218,7 @@ def option_c():
 {0}[{1}7{0}] {2}Take a screenshot       {0}[{1}8{0}] {2}Pull file from device     {0}[{1}9{0}] {2}Reboot device
 
 {3}App
-{0}[{1}a1{0}] {2}Fresh install an app   {0}[{1}a2{0}] {2}Replace an existing app  {0}[{1}a3{0}] {2}Uninstall an app
+{0}[{1}a1{0}] {2}Install an app         {0}[{1}a2{0}] {2}Replace an existing app  {0}[{1}a3{0}] {2}Uninstall an app
 {0}[{1}a4{0}] {2}Restart an app         {0}[{1}a5{0}] {2}Clear app cache & data   {0}[{1}a6{0}] {2}Run monkey test
 
 {3}System
