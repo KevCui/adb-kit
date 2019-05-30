@@ -148,7 +148,7 @@ def option_a5():
     # Clean app cache
     device_id = getDeviceID()
     package_name = getPackageName()
-    os.system("adb -s " + device_id + " pm clear " + package_name)
+    os.system("adb -s " + device_id + " shell pm clear " + package_name)
 
 
 def option_a6():
@@ -165,13 +165,13 @@ def option_a6():
 def option_s1():
     # Show language setting
     device_id = getDeviceID()
-    os.system("adb -s " + device_id + " start -a android.settings.LOCALE_SETTINGS")
+    os.system("adb -s " + device_id + " shell am start -a android.settings.LOCALE_SETTINGS")
 
 
 def option_s2():
     # Show WiFi setting
     device_id = getDeviceID()
-    os.system("adb -s " + device_id + " start -a android.settings.WIFI_SETTINGS")
+    os.system("adb -s " + device_id + " shell am start -a android.settings.WIFI_SETTINGS")
 
 
 def option_s3():
