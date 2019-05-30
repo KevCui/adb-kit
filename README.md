@@ -30,6 +30,8 @@ pip install -r requirements.txt
 ./adbkit.py
 ```
 
+- Enter the option to run command
+
 ## Menu
 
 ```

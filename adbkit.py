@@ -7,27 +7,41 @@ import time
 from colorama import Fore
 
 
-def option_c():
-    message = '''
-{3}Operation
-{0}[{1}1{0}] {2}Show Connected Devices  {0}[{1}2{0}] {2}Disconect all Devices     {0}[{1}3{0}] {2}Wireless device connection
-{0}[{1}4{0}] {2}Restart adb Server      {0}[{1}5{0}] {2}Access Shell on a device  {0}[{1}6{0}] {2}Take a screen record
-{0}[{1}7{0}] {2}Take a screenshot       {0}[{1}8{0}] {2}Pull file from device     {0}[{1}9{0}] {2}Reboot device
+# =========
+# Functions
+# =========
+def getDeviceID():
+    option_1()
+    return input(Fore.RED + "(Pick a 'Device ID') " + Fore.WHITE + "> ")
 
-{3}App
-{0}[{1}a1{0}] {2}Fresh install an app   {0}[{1}a2{0}] {2}Replace an existing app  {0}[{1}a3{0}] {2}Uninstall an app
-{0}[{1}a4{0}] {2}Restart an app         {0}[{1}a5{0}] {2}Clear app cache & data   {0}[{1}a6{0}] {2}Run monkey test
 
-{3}System
-{0}[{1}s1{0}] {2}Show language setting  {0}[{1}s2{0}] {2}Show WiFi setting        {0}[{1}s3{0}] {2}Show logcat
-{0}[{1}s4{0}] {2}List all apps
+def getPackageName():
+    return input(Fore.RED + "(Package name, like: com.android) " + Fore.WHITE + "> ")
 
-{0}[{1}c{0}] {2}Clear screen & Show menu
-{0}[{1}q{0}] {2}Quit
-    '''.format(Fore.WHITE, Fore.RED, Fore.YELLOW, Fore.GREEN)
 
-    os.system('clear')
-    print(message)
+def getFilePath():
+    return input(Fore.RED + "(Which file on the device) " + Fore.WHITE + "> ")
+
+
+def getFileSaveToPath():
+    return input(Fore.RED + "(Save to) " + Fore.WHITE + "> ")
+
+
+def getIPAddress():
+    return input(Fore.RED + "(Which IP) " + Fore.WHITE + "> ")
+
+
+def getAPKLocation():
+    return input(Fore.RED + "(Path to apk) " + Fore.WHITE + "> ")
+
+
+def main():
+    option = input(Fore.RED + "(run option) " + Fore.WHITE + "> ")
+    try:
+        eval('option_' + option + '()')
+    except NameError as error:
+        print(error)
+    main()
 
 
 # ==================
@@ -174,45 +188,31 @@ def option_s4():
 # ==============
 # Other commnads
 # ==============
+def option_c():
+    message = '''
+{3}Operation
+{0}[{1}1{0}] {2}Show Connected Devices  {0}[{1}2{0}] {2}Disconect all Devices     {0}[{1}3{0}] {2}Wireless device connection
+{0}[{1}4{0}] {2}Restart adb Server      {0}[{1}5{0}] {2}Access Shell on a device  {0}[{1}6{0}] {2}Take a screen record
+{0}[{1}7{0}] {2}Take a screenshot       {0}[{1}8{0}] {2}Pull file from device     {0}[{1}9{0}] {2}Reboot device
+
+{3}App
+{0}[{1}a1{0}] {2}Fresh install an app   {0}[{1}a2{0}] {2}Replace an existing app  {0}[{1}a3{0}] {2}Uninstall an app
+{0}[{1}a4{0}] {2}Restart an app         {0}[{1}a5{0}] {2}Clear app cache & data   {0}[{1}a6{0}] {2}Run monkey test
+
+{3}System
+{0}[{1}s1{0}] {2}Show language setting  {0}[{1}s2{0}] {2}Show WiFi setting        {0}[{1}s3{0}] {2}Show logcat
+{0}[{1}s4{0}] {2}List all apps
+
+{0}[{1}c{0}] {2}Clear screen & Show menu
+{0}[{1}q{0}] {2}Quit
+    '''.format(Fore.WHITE, Fore.RED, Fore.YELLOW, Fore.GREEN)
+
+    os.system('clear')
+    print(message)
+
+
 def option_q():
     sys.exit(0)
-
-
-# =========
-# Functions
-# =========
-def getDeviceID():
-    option_1()
-    return input(Fore.RED + "(Pick a 'Device ID') " + Fore.WHITE + "> ")
-
-
-def getPackageName():
-    return input(Fore.RED + "(Package name, like: com.android) " + Fore.WHITE + "> ")
-
-
-def getFilePath():
-    return input(Fore.RED + "(Which file on the device) " + Fore.WHITE + "> ")
-
-
-def getFileSaveToPath():
-    return input(Fore.RED + "(Save to) " + Fore.WHITE + "> ")
-
-
-def getIPAddress():
-    return input(Fore.RED + "(Which IP) " + Fore.WHITE + "> ")
-
-
-def getAPKLocation():
-    return input(Fore.RED + "(Path to apk) " + Fore.WHITE + "> ")
-
-
-def main():
-    option = input(Fore.RED + "(run option) " + Fore.WHITE + "> ")
-    try:
-        eval('option_' + option + '()')
-    except NameError as error:
-        print(error)
-    main()
 
 
 if __name__ == '__main__':
