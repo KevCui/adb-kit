@@ -12,7 +12,7 @@ from colorama import Fore
 # =========
 def getDeviceID():
     option_1()
-    return input(Fore.RED + "(Pick a 'Device ID') " + Fore.WHITE + "> ")
+    return input(Fore.RED + "(Enter 'Device ID') " + Fore.WHITE + "> ")
 
 
 def getPackageName():
@@ -20,7 +20,7 @@ def getPackageName():
 
 
 def getFilePath():
-    return input(Fore.RED + "(Which file on the device) " + Fore.WHITE + "> ")
+    return input(Fore.RED + "(Which file or folder on the device) " + Fore.WHITE + "> ")
 
 
 def getFileSaveToPath():
@@ -39,7 +39,7 @@ def main():
     option = input(Fore.RED + "(run option) " + Fore.WHITE + "> ")
     try:
         eval('option_' + option + '()')
-    except NameError as error:
+    except Exception as error:
         print(error)
     main()
 
@@ -77,7 +77,7 @@ def option_5():
 
 def option_6():
     # Take a screen record
-    unix_time = int(time.time())
+    unix_time = str(int(time.time()))
     file_name = "record_" + unix_time + ".mp4"
     device_id = getDeviceID()
     os.system("adb -s "+device_id + " shell screenrecord /sdcard/" + file_name)
@@ -87,9 +87,10 @@ def option_6():
 
 def option_7():
     # Take a screenshot
-    unix_time = int(time.time())
+    unix_time = str(int(time.time()))
     file_name = "screenshot_" + unix_time + ".png"
     device_id = getDeviceID()
+    print('ctrl-c to quit record...')
     os.system("adb -s " + device_id + " shell screencap -p /sdcard/" + file_name)
     file_to_local = getFileSaveToPath()
     os.system("adb -s " + device_id + " pull /sdcard/" + file_name + " " + file_to_local)
@@ -99,7 +100,7 @@ def option_8():
     # Copy file from device to local
     device_id = getDeviceID()
     file_from_device = getFilePath()
-    file_to_local = getFileSaveToPath
+    file_to_local = getFileSaveToPath()
     os.system("adb -s " + device_id + " pull " + file_from_device + " " + file_to_local)
 
 
@@ -192,7 +193,7 @@ def option_c():
     message = '''
 {3}Operation
 {0}[{1}1{0}] {2}Show Connected Devices  {0}[{1}2{0}] {2}Disconect all Devices     {0}[{1}3{0}] {2}Wireless device connection
-{0}[{1}4{0}] {2}Restart adb Server      {0}[{1}5{0}] {2}Access Shell on a device  {0}[{1}6{0}] {2}Take a screen record
+{0}[{1}4{0}] {2}Restart adb Server      {0}[{1}5{0}] {2}Open Shell on a device    {0}[{1}6{0}] {2}Take a screen record
 {0}[{1}7{0}] {2}Take a screenshot       {0}[{1}8{0}] {2}Pull file from device     {0}[{1}9{0}] {2}Reboot device
 
 {3}App
