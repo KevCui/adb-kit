@@ -3,7 +3,9 @@
 
 import os
 import sys
+import re
 import time
+import subprocess
 from colorama import Fore
 
 
@@ -11,8 +13,14 @@ from colorama import Fore
 # Functions
 # =========
 def getDeviceID():
-    option_1()
-    return input(Fore.RED + "(Enter 'Device ID') " + Fore.WHITE + "> ")
+    device_list = option_1()
+    selection = 0
+    if len(device_list) != 1:
+        for i, device in enumerate(device_list):
+            print(Fore.WHITE + "[" + Fore.RED + str(i) + Fore.WHITE + "] " + device)
+        selection = int(input(Fore.RED + "(Choose a device [0-" + str(len(device_list)-1) + "]) " + Fore.WHITE + "> "))
+    print("Device " + device_list[selection] + " selected")
+    return device_list[selection]
 
 
 def getPackageName():
@@ -48,8 +56,22 @@ def main():
 # Operation commands
 # ==================
 def option_1():
-    # Show connected device
-    os.system("adb devices -l")
+    # Return connected device list
+    result = subprocess.run(['adb', 'devices', '-l'], stdout=subprocess.PIPE)
+    raw_list = result.stdout.decode('utf-8')
+    print(raw_list)
+
+    device_list = []
+    for line in raw_list.splitlines():
+        if "List of devices attached" not in line:
+            line_split = re.split(r'\s+', line)
+            device_list.append(line_split[0])
+
+    if len(device_list) == 0:
+        print("No device connected!")
+        main()
+    else:
+        return device_list
 
 
 def option_2():
