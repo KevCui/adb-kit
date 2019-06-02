@@ -12,15 +12,23 @@ from colorama import Fore
 # =========
 # Functions
 # =========
-def getDeviceID():
+def getDeviceIDList():
     device_list = option_1()
-    selection = 0
+    selection_list = device_list.copy()
+
     if len(device_list) != 1:
+        device_list.append("all of them")
         for i, device in enumerate(device_list):
             print(Fore.WHITE + "[" + Fore.RED + str(i) + Fore.WHITE + "] " + device)
+
         selection = int(input(Fore.GREEN + "(Choose a device [0-" + str(len(device_list)-1) + "]) " + Fore.WHITE + "> "))
-    print("Device " + device_list[selection] + " selected")
-    return device_list[selection]
+        print(device_list[selection] + " selected")
+
+        if "all of them" != device_list[selection]:
+            selection_list = []
+            selection_list.append(device_list[selection])
+
+    return selection_list
 
 
 def getPackageName():
@@ -41,6 +49,14 @@ def getIPAddress():
 
 def getAPKLocation():
     return input(Fore.GREEN + "(Path to apk) " + Fore.WHITE + "> ")
+
+
+def adb(cmd, device_list=[]):
+    if len(device_list) == 0:
+        os.system("adb " + cmd)
+    else:
+        for device in device_list:
+            os.system("adb -s " + device + " " + cmd)
 
 
 def main():
@@ -77,60 +93,58 @@ def option_1():
 
 def option_2():
     # Disconect all devices
-    os.system("adb disconnect")
+    adb("disconnect")
 
 
 def option_3():
     # Connect device remotely
-    ip = getIPAddress()
-    os.system("adb connect " + ip + ":5555")
+    adb("connect " + getIPAddress() + ":5555")
 
 
 def option_4():
     # Restart adb server
-    os.system("adb kill-server")
-    os.system("adb start-server")
+    adb("kill-server")
+    adb("start-server")
 
 
 def option_5():
     # Run a shell
-    device_id = getDeviceID()
-    os.system("adb -s " + device_id + " shell")
+    adb("shell", getDeviceIDList())
 
 
 def option_6():
     # Take a screen record
     unix_time = str(int(time.time()))
     file_name = "record_" + unix_time + ".mp4"
-    device_id = getDeviceID()
-    os.system("adb -s "+device_id + " shell screenrecord /sdcard/" + file_name)
+    device_list = getDeviceIDList()
+    adb("shell screenrecord /sdcard/" + file_name, device_list)
     file_to_local = getFileSaveToPath()
-    os.system("adb -s "+device_id + " pull /sdcard/" + file_name + " " + file_to_local)
+    adb("pull /sdcard/" + file_name + " " + file_to_local, device_list)
 
 
 def option_7():
     # Take a screenshot
     unix_time = str(int(time.time()))
     file_name = "screenshot_" + unix_time + ".png"
-    device_id = getDeviceID()
+    device_list = getDeviceIDList()
     print('ctrl-c to quit record...')
-    os.system("adb -s " + device_id + " shell screencap -p /sdcard/" + file_name)
+    adb("shell screencap -p /sdcard/" + file_name, device_list)
     file_to_local = getFileSaveToPath()
-    os.system("adb -s " + device_id + " pull /sdcard/" + file_name + " " + file_to_local)
+    adb("pull /sdcard/" + file_name + " " + file_to_local, device_list)
 
 
 def option_8():
     # Copy file from device to local
-    device_id = getDeviceID()
+    device_list = getDeviceIDList()
     file_from_device = getFilePath()
     file_to_local = getFileSaveToPath()
-    os.system("adb -s " + device_id + " pull " + file_from_device + " " + file_to_local)
+    adb("pull " + file_from_device + " " + file_to_local, device_list)
 
 
 def option_9():
     # Reboot device
-    device_id = getDeviceID()
-    os.system("adb -s " + device_id + " reboot ")
+    device_list = getDeviceIDList()
+    adb("reboot", device_list)
 
 
 # ============
@@ -138,46 +152,46 @@ def option_9():
 # ============
 def option_a1():
     # Install apk
-    device_id = getDeviceID()
+    device_list = getDeviceIDList()
     apk_location = getAPKLocation()
-    os.system("adb -s  " + device_id + " install " + apk_location)
+    adb("install " + apk_location, device_list)
 
 
 def option_a2():
     # Update apk
-    device_id = getDeviceID()
+    device_list = getDeviceIDList()
     apk_location = getAPKLocation()
-    os.system("adb -s  " + device_id + " install -r " + apk_location)
+    adb("install -r " + apk_location, device_list)
 
 
 def option_a3():
     # Uninstall apk
-    device_id = getDeviceID()
+    device_list = getDeviceIDList()
     package_name = getPackageName()
-    os.system("adb -s  " + device_id + " uninstall " + package_name)
+    adb("uninstall " + package_name, device_list)
 
 
 def option_a4():
     # Restart app
-    device_id = getDeviceID()
+    device_list = getDeviceIDList()
     package_name = getPackageName()
-    os.system("adb -s " + device_id + " shell am force-stop " + package_name)
-    os.system("adb -s " + device_id + " shell am start " + package_name)
+    adb("shell am force-stop " + package_name, device_list)
+    adb("shell am start " + package_name, device_list)
 
 
 def option_a5():
     # Clean app cache
-    device_id = getDeviceID()
+    device_list = getDeviceIDList()
     package_name = getPackageName()
-    os.system("adb -s " + device_id + " shell pm clear " + package_name)
+    adb("shell pm clear " + package_name, device_list)
 
 
 def option_a6():
     # Run monkey test
-    device_id = getDeviceID()
+    device_list = getDeviceIDList()
     package_name = getPackageName()
     gestures = input(Fore.RED + "Run how many gestures?)" + Fore.WHITE + " >")
-    os.system("adb -s " + device_id + " shell monkey --throttle 500 -p " + package_name + " -v " + gestures)
+    adb("shell monkey --throttle 500 -p " + package_name + " -v " + gestures, device_list)
 
 
 # ===============
@@ -185,26 +199,26 @@ def option_a6():
 # ===============
 def option_s1():
     # Show language setting
-    device_id = getDeviceID()
-    os.system("adb -s " + device_id + " shell am start -a android.settings.LOCALE_SETTINGS")
+    device_list = getDeviceIDList()
+    adb("shell am start -a android.settings.LOCALE_SETTINGS", device_list)
 
 
 def option_s2():
     # Show WiFi setting
-    device_id = getDeviceID()
-    os.system("adb -s " + device_id + " shell am start -a android.settings.WIFI_SETTINGS")
+    device_list = getDeviceIDList()
+    adb("shell am start -a android.settings.WIFI_SETTINGS", device_list)
 
 
 def option_s3():
     # Show logcat
-    device_id = getDeviceID()
-    os.system('adb -s ' + device_id + " logcat")
+    device_list = getDeviceIDList()
+    adb("logcat", device_list)
 
 
 def option_s4():
     # List installed apps
-    device_id = getDeviceID()
-    os.system("adb -s " + device_id + " shell pm list packages -f")
+    device_list = getDeviceIDList()
+    adb("shell pm list packages -f", device_list)
 
 
 # ==============
