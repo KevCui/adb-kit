@@ -1,7 +1,12 @@
-adb-kit
-=======
+# adb-kit
 
-adb-kit is a collection of handy `adb` commands. Free free to fork and put more customized commands for your project.
+adb-kit is a collection of handy `adb` commands. Forked from [PhoneSploit](https://github.com/Zucccs/PhoneSploit).
+
+## Table of Contents
+
+- [Dependency](#dependency)
+- [How to use](#how-to-use)
+- [Menu](#menu)
 
 ## Dependency
 
@@ -12,22 +17,22 @@ adb-kit is a collection of handy `adb` commands. Free free to fork and put more 
 
 - Check `adb` command if it's installed:
 
-```
-adb
+```bash
+~$ adb
 ```
 
 If not, follow this guide to install it: https://www.xda-developers.com/install-adb-windows-macos-linux/
 
 - Install python3 requirements:
 
-```
-pip install -r requirements.txt
+```bash
+~$ pip install -r requirements.txt
 ```
 
 - Run main script
 
-```
-./adbkit.py
+```bash
+~$ ./adbkit.py
 ```
 
 - Enter the option to run command
@@ -51,9 +56,3 @@ System
 [c] Clear screen & Show menu
 [q] Quit
 ```
-
-## License
-
-MIT
-
-Forked from [PhoneSploit](https://github.com/Zucccs/PhoneSploit)
